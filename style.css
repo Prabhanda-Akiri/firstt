@@ -338,3 +338,13 @@
 	text-align: center;
 	cursor: pointer;
 }
+
+#add_c{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: white;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid #2c3e50;
+}
