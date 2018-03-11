@@ -1,5 +1,5 @@
 <?php
-
+	require 'dbconfig/config.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,16 +47,18 @@
 	<div id="add_t">
 		<center><label style="color:#586ebc;font-size:24px;"><br><br><b><u>ADD TEACHER</b></u></label><br></center>
 				<label><label><br>
+				<form>
 				<b><label style="font-size:18px;margin-left:180px;">Full Name:</label>
-				<input type="text" class="inputdetails" style="margin-left:115px;"/><br>
+				<input name="username" type="text" class="inputdetails" style="margin-left:115px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Mobile No:</label>
-				<input type="text" class="inputdetails" style="margin-left:115px;" /><br>
+				<input name="mob_no" type="text" class="inputdetails" style="margin-left:115px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Email ID:</label>
-				<input type="text" class="inputdetails" style="margin-left:125px;" /><br>
+				<input name="email_id" type="text" class="inputdetails" style="margin-left:125px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Highest Qualification:</label>
-				<input type="text" class="inputdetails" style="margin-left:30px;"/><br><br></b>
+				<input name="qual" type="text" class="inputdetails" style="margin-left:30px;" required /><br><br></b>
 				
-				<center><input type="submit" id="submit" value="Submit"/></center><br>
+				<center><input name="submit_b" type="submit" id="submit_btn" value="Submit"/></center><br>
+				</form>
 		
 	</div>	
 	

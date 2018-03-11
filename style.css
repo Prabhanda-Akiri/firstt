@@ -80,41 +80,41 @@
 	background-color: #EE5A24;
 	padding: 10px;
 	color:white;
-	height: 60px;
+	height: 80px;
 	margin-top: 85px;
 	margin-left: 150px;
 	margin-bottom: 85px;
-	width:190px;
-	border-radius:10px;
+	width:170px;
+	border-radius:20px;
 	text-align:center;
 	cursor: pointer;
-	border: 2px solid #2c3e50;
+	border: 2px solid #f1c40f;
 }
 #teacher{
 	background-color: #EE5A24;
 	padding: 10px;
 	color:white;
-	height: 60px;
+	height: 80px;
 	margin-top: 85px;
 	margin-bottom: 85px;
-	width:190px;
+	width:170px;
 	text-align:center;
-	border-radius:10px;
-	border: 2px solid #2c3e50;
+	border-radius:20px;
+	border: 2px solid #f1c40f;
 	cursor: pointer;
 }
 #parent{
 	background-color: #EE5A24;
 	padding: 10px;
 	color:white;
-	width:190px;
+	width:170px;
 	margin-top: 85px;
 	margin-right:150px;
 	margin-bottom: 85px;
-	height: 60px;
+	height: 80px;
 	text-align:center;
-	border-radius:10px;
-	border: 2px solid #2c3e50;
+	border-radius:20px;
+	border: 2px solid #f1c40f;
 	cursor: pointer;
 }
 
@@ -366,7 +366,7 @@
 	
 }
 
-#submit{
+#submit_btn{
 	width: 100px;
 	background-color:#44bd32;
 	height: 40px;

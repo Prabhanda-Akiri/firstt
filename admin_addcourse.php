@@ -47,14 +47,16 @@
 	<div id="add_c">
 		<center><label style="color:#586ebc;font-size:24px;"><br><br><b><u>ADD COURSE</b></u></label><br></center>
 				<label><label><br>
+				<form>
 				<b><label style="font-size:18px;margin-left:180px;">Course Name:</label>
-				<input type="text" class="inputdetails" style="margin-left:93px;"/><br>
+				<input type="text" class="inputdetails" style="margin-left:93px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Teacher:</label>
-				<input type="text" class="inputdetails" style="margin-left:135px;" /><br>
+				<input type="text" class="inputdetails" style="margin-left:135px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Semester:</label>
-				<input type="text" class="inputdetails" style="margin-left:125px;" /><br>
+				<input type="text" class="inputdetails" style="margin-left:125px;" required /><br>
 				
-				<center><input type="submit" id="submit" value="Confirm"/></center><br>
+				<center><input type="submit" id="submit_btn" value="Confirm"/></center><br>
+				</form>
 	</div>
 	<div id="footer">
 	</div>

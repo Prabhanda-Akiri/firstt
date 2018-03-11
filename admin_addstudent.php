@@ -47,20 +47,22 @@
 	<div id="add_t">
 		<center><label style="color:#586ebc;font-size:24px;"><br><br><b><u>ADD STUDENT</b></u></label><br></center>
 				<label><label><br>
+				<form>
 				<b><label style="font-size:18px;margin-left:180px;">Full Name:</label>
-				<input type="text" class="inputdetails" style="margin-left:115px;"/><br>
+				<input type="text" class="inputdetails" style="margin-left:115px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Course:</label>
-				<input type="text" class="inputdetails" style="margin-left:140px;" /><br>
+				<input type="text" class="inputdetails" style="margin-left:140px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Mobile No:</label>
-				<input type="text" class="inputdetails" style="margin-left:115px;" /><br>
+				<input type="text" class="inputdetails" style="margin-left:115px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Student Email ID:</label>
-				<input type="text" class="inputdetails" style="margin-left:60px;" /><br>
+				<input type="text" class="inputdetails" style="margin-left:60px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Parent Name:</label>
-				<input type="text" class="inputdetails" style="margin-left:95px;"/><br>
+				<input type="text" class="inputdetails" style="margin-left:95px;" required /><br>
 				<label style="font-size:18px;margin-left:180px;">Parent Email ID:</label>
-				<input type="text" class="inputdetails" style="margin-left:70px;" /><br><br></b>
+				<input type="text" class="inputdetails" style="margin-left:70px;" required /><br><br></b>
 				
-				<center><input type="submit" id="submit" value="Confirm"/></center><br>
+				<center><input type="submit" id="submit_btn" value="Confirm"/></center><br>
+				</form>
 		
 	</div>	
 	

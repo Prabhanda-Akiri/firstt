@@ -23,20 +23,34 @@
 		</form>
 	</div>
 	<div id="choice-wrapper">
-		<center><br><br><br><label style="color:#586ebc"><b><u>Admin Login</u></b></label><br>
+		<center><br><br><br><label style="color:#586ebc;font-size:25px;"><b><u>Admin Login</u></b></label><br>
 		<form class="adminlog" action="adminlogin.php" method="post">
-			<br><input name="ad_id" type="text" class="inputvalues" placeholder="Admin ID" required /><br>
-			<input name="ad_psd" type="password" class="inputvalues" placeholder="Password" required /><br><br>
-			<input name="login" type="button" id="login_btn" value="Login" /><br>
+			<br><input name="userid" type="text" class="inputvalues" placeholder="Admin ID" required /><br>
+			<input name="passwd" type="password" class="inputvalues" placeholder="Password" required /><br><br>
+			<input name="login" type="submit" id="login_btn" value="Login" /><br>
 		</form>
 		
 		<?php
 			if(isset($_POST['login']))
 			{
-				echo '<script type="text/javascript"> alert("Login button clicked") </script>';
-				$userid=$_POST['ad_id'];
-				$passwd=$_POST['ad_psd'];				
+				//echo '<script type="text/javascript" > alert("Login button clicked") </script>';
+				$userid=$_POST['userid'];
+				$passwd=$_POST['passwd'];	
+				
+				$query="select * from login WHERE username='$userid'";
+				$query_run=mysqli_query($con,$query);
+				
+				if(mysqli_num_rows($query_run)>0)
+				{
+					echo '<script type="text/javascript" > alert("You are Successfully logged in..!!") </script>';
+				}
+				
+				else
+				{
+					echo '<script type="text/javascript" > alert("Invalid username or password") </script>';
+				}
 			}
+			
 		?>
 		</center>
 		
