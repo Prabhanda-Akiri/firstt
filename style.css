@@ -289,6 +289,8 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 .report-content a:hover {
 	background-color: #f1f1f1
@@ -296,16 +298,52 @@
 .reports:hover .report-content {
     display: block;
 }
-#view_feedback{
+
+.fdbck{
+    color: white;
+    font-size: 16px;
+    border: none;
+	position: relative;
+	display: inline-block;
+}
+
+
+.fdbck-btns {
+    position: relative;
+    float:left;
 	background-color: #586ebc;
 	padding: 5px;
 	color:white;
 	width:150px;
 	height:40px;
 	text-align:center;
-	display: inline-block;
-	float:left;
 	cursor: pointer;
+}
+.fdbck-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
+	background-color: white;
+	width:200px;
+	height:30px;
+	text-align:center;
+	position: relative;
+}
+
+.fdbck-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.fdbck-content a:hover {
+	background-color: #f1f1f1
+	}
+.fdbck:hover .fdbck-content {
+    display: block;
 }
 
 #add_t{

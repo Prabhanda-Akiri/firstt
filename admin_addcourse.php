@@ -35,7 +35,13 @@
 			<a href="#">View Grades Report</a>
 			</div>
 			</div>
-			<input type="button" id="view_feedback" value="View Feedback"/>
+			<div class="fdbck" action="admin_addteacher.php">
+			<button class="fdbck-btns">View Feedback</button>
+			<div class="fdbck-content" >
+			<a href="#">Teacher's Feedback</a><br>
+			<a href="#">Student's Feedback</a>
+			</div>
+			</div>
 		</form>
 	</div>
 	<div id="add_c">
