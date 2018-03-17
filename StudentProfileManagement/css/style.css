@@ -1,0 +1,388 @@
+
+#main-wrapper{
+	width:900px;
+	margin: 0 auto;
+	margin-top: 45px;
+	background:	#586ebc;
+	text-align: center;
+	padding: 5px;
+	border-radius: 10px;
+	border: 2px solid #2c3e50;
+}
+
+.studpic{
+	width: 250px;
+	text-align: leftwards;
+	
+}
+
+#button-wrapper{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: #586ebc;
+	padding: 5px;
+	border-radius: 2px;
+	border: 2px solid #2c3e50;
+	
+	
+}
+
+.btns{
+	margin: 0 auto;
+	align-self: centre;
+	border: white;
+}
+
+#home{
+	background-color: #586ebc;
+	padding: 10px;
+	color:white;
+	width:290px;
+	text-align:center;
+	cursor: pointer;
+}
+
+
+#aboutus{
+	background-color: #586ebc;
+	padding: 10px;
+	color:white;
+	width:300px;
+	text-align:center;
+	cursor: pointer;
+}
+
+#contactus{
+	background-color: #586ebc;
+	padding: 10px;
+	color:white;
+	width:300px;
+	text-align:center;
+	cursor: pointer;
+}
+
+#choice-wrapper{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: white;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid #2c3e50;
+}
+.coice_btns{
+	margin: 0 auto;
+}
+
+
+#admin{
+	background-color: #EE5A24;
+	padding: 10px;
+	color:white;
+	height: 80px;
+	margin-top: 85px;
+	margin-left: 150px;
+	margin-bottom: 85px;
+	width:170px;
+	border-radius:20px;
+	text-align:center;
+	cursor: pointer;
+	border: 2px solid #f1c40f;
+}
+#teacher{
+	background-color: #EE5A24;
+	padding: 10px;
+	color:white;
+	height: 80px;
+	margin-top: 85px;
+	margin-bottom: 85px;
+	width:170px;
+	text-align:center;
+	border-radius:20px;
+	border: 2px solid #f1c40f;
+	cursor: pointer;
+}
+#parent{
+	background-color: #EE5A24;
+	padding: 10px;
+	color:white;
+	width:170px;
+	margin-top: 85px;
+	margin-right:150px;
+	margin-bottom: 85px;
+	height: 80px;
+	text-align:center;
+	border-radius:20px;
+	border: 2px solid #f1c40f;
+	cursor: pointer;
+}
+
+#footer{
+	width:900px;
+	margin:0 auto;
+	margin-top: 10px;
+	background: #586ebc;
+	padding: 10px;
+	border-radius: 8px;
+	border: 2px solid #2c3e50;
+}
+
+.adminlog{
+	margin:0 auto;
+}
+
+.inputvalues{
+	width: 200px;
+	height: 40px;
+	margin: 0 auto;
+	text-align:centre;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	
+}
+
+#login_btn{
+	width: 200px;
+	background-color:#44bd32;
+	height: 40px;
+	color:white;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	text-align: center;
+	cursor: pointer;
+
+}
+
+
+#admin-button-wrapper{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: #586ebc;
+	padding: 5px;
+	border-radius: 2px;
+	border: 2px solid #2c3e50;
+	
+	
+}
+
+.ad_btns{
+	margin: 0 auto;
+	align-self: centre;
+	border: white;
+}
+
+#add_teacher{
+	background-color: #586ebc;
+	padding: 5px;
+	float:left;
+	color:white;
+	width:140px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+
+
+#add_course{
+	background-color: #586ebc;
+	padding: 5px;
+	float:left;
+	color:white;
+	width:150px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+
+#add_student{
+	background-color: #586ebc;
+	padding: 5px;
+	float:left;
+	color:white;
+	width:150px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+.details{
+    color: white;
+    font-size: 16px;
+    border: none;
+	position: relative;
+	display:inline-block;
+}
+
+
+.details-btns {
+    position: relative;
+    float:left;
+	background-color: #586ebc;
+	padding: 5px;
+	color:white;
+	width:170px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+.details-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
+	background-color: white;
+	width:200px;
+	height:30px;
+	text-align:center;
+	position: relative;
+}
+
+.details-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.details-content a:hover {
+	background-color: #f1f1f1
+	}
+.details:hover .details-content {
+    display: block;
+}
+.reports {
+    color: white;
+    font-size: 16px;
+    border: none;
+	position: relative;
+	display: inline-block;
+}
+
+
+.report-btns {
+    position: relative;
+    float:left;
+	background-color: #586ebc;
+	padding: 5px;
+	color:white;
+	width:130px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+.report-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
+	background-color: white;
+	width:200px;
+	height:30px;
+	text-align:center;
+	position: relative;
+}
+
+.report-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.report-content a:hover {
+	background-color: #f1f1f1
+	}
+.reports:hover .report-content {
+    display: block;
+}
+
+.fdbck{
+    color: white;
+    font-size: 16px;
+    border: none;
+	position: relative;
+	display: inline-block;
+}
+
+
+.fdbck-btns {
+    position: relative;
+    float:left;
+	background-color: #586ebc;
+	padding: 5px;
+	color:white;
+	width:150px;
+	height:40px;
+	text-align:center;
+	cursor: pointer;
+}
+.fdbck-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
+	background-color: white;
+	width:200px;
+	height:30px;
+	text-align:center;
+	position: relative;
+}
+
+.fdbck-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.fdbck-content a:hover {
+	background-color: #f1f1f1
+	}
+.fdbck:hover .fdbck-content {
+    display: block;
+}
+
+#add_t{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: white;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid #2c3e50;
+}
+
+.inputdetails{
+	width: 200px;
+	height: 23px;
+	margin: 0 auto;
+	text-align:centre;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
+}
+
+#submit_btn{
+	width: 100px;
+	background-color:#44bd32;
+	height: 40px;
+	color:white;
+	margin-bottom: 10px;
+	border-radius: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#add_c{
+	width:900px;
+	margin:0 auto;
+	margin-top: 5px;
+	background: white;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid #2c3e50;
+}
