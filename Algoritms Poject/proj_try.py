@@ -103,11 +103,11 @@ class Fleurys:
 		no_adj=len(self.V[u].adj)
 
 		if no_adj==1:
-			print('hi, 1,',u)
+			#print('hi, 1,',u)
 			return True
 
 		else:
-			print('hi, 2,',u)
+			#print('hi, 2,',u)
 
 			self.visited=[False for i in range(self.n)]
 			count1=self.Reachable(u)
@@ -131,7 +131,7 @@ class Fleurys:
 		for  i in range(self.n):
 
 			length=len(self.V[i].adj)
-			print(length)
+			#print(length)
 			if length%2 !=0:
 				u=i 
 				break
@@ -160,23 +160,52 @@ class Manhattan_Touring:
 		self.n=n 
 		self.e=e 
 
-		self.init_edgetable(E) 
+		self.r=int(math.sqrt(self.n))
+		self.init_edgetable(E)
+
+		self.S=[[0 for i in range(self.r)] for i in range(self.r)]
 
 	def init_edgetable(self,E):
 
-		self.r=math.sqrt(self.n)
-		self.g_no=[[(i/3),(i%3)] for i in range(self.n)]
-		self.W_s=[[None for i in range(self.n)] for i in range(self.r-1)] 
-		self.W_e=[[None for i in range(self.r-1)] for i in range(self.r)] 
+		self.g_no=[[int(i/3),(i%3)] for i in range(self.n)]
+		self.W_s=[[0 for i in range(self.r)] for i in range(self.r)] 
+		self.W_e=[[0 for i in range(self.r)] for i in range(self.r)] 
 		
 		for i in range(len(E)):
 
 			if E[i][0]+1==E[i][1] :
 
 				from_v=E[i][0]
-				to_v=E[i][1]
+				s=self.g_no[from_v]
 
-				self.W_e[]
+				self.W_e[s[0]][s[1]]=E[i][2]
+
+			elif E[i][0]+self.r==E[i][1] :
+
+				from_v=E[i][0]
+				s=self.g_no[from_v]
+
+				self.W_s[s[0]][s[1]]=E[i][2]
+
+		print('Grid no\'s of vertices:		',self.g_no,'\nWeights of southern Roads:	',self.W_s,'\nWeights of eastern Roads:	',self.W_e,'\n')
+
+	def longest_path(self):
+
+		self.S[0][0]=0 
+		#print(self.r)
+		for i in range(1,self.r):
+			#print(i,self.W_s[i][0])
+			self.S[i][0]=self.S[i-1][0] + self.W_s[i-1][0]
+
+		for j in range(1,self.r):
+			self.S[0][j]=self.S[0][j-1] + self.W_e[0][j-1] 
+
+		for i in range(1,self.r):
+			for j in range(1,self.r):
+
+				self.S[i][j]=max((self.S[i-1][j]+self.W_s[i-1][j]),(self.S[i][j-1]+self.W_e[i][j-1]))
+
+		return self.S[i][j]
 
 
 class Vertex_Node:
@@ -192,11 +221,6 @@ class Edge_Node:
 		self.end=e 
 		self.weight=w 
 
-"""class xyz:
-
-	def __init__(self):
-
-"""
 
 def main():
 
@@ -206,8 +230,12 @@ def main():
 
 	fl=Fleurys(n,e,E)
 
-	print('isEulerian?	',fl.isEulerian())
-	print(fl.giveRoute())
+	print('\nisEulerian?	',fl.isEulerian())
+	print('\n',fl.giveRoute())
+
+	m=Manhattan_Touring(n,e,E)
+
+	print('The maximun weight of route:	',m.longest_path())
 
 
 if __name__ == '__main__':
