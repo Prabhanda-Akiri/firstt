@@ -128,7 +128,11 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
     ey=b;
 
     d1=sb-(sa*b) + (0.5*sa) ;
-
+    for(y=ey+st_y1+1;y<le_y;y++)
+    {
+        store_vertex(le_x_l,y);
+        store_vertex(le_x,y);
+    }
     store_vertex(ex+st_x1,ey+st_y1);
 
     while((sa*(ey-0.5)>sb*(ex+1)) && ex<l)
@@ -150,8 +154,9 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
 
     for(y=0;y<1000;y++)
     {
-       for(i=0;i<ct[i]+1;i++)
+       for(i=0;i<ct[y]+1;i++)
        {
+          //printf("plotting point ellipse");
           if(le[y][i]<re[y][i])
           {
              for(j=le[y][i]+1;j<re[y][i];j++)
