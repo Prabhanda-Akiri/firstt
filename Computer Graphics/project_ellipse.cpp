@@ -4,6 +4,8 @@
 
 GLfloat x1,y1,x2,y2,x3,y3,x4,y4,x5,y5;
 GLfloat xb1=600,yb1=10,xb2=680,yb2=10,xb3=700,yb3=60,xb4=580,yb4=60,xb5=580,yb5=60;
+GLfloat xf1=640,yf1=90,xf2=700,yf2=130,xf3=640,yf3=170,xf4=xf3,yf4=yf3,xf5=xf3,yf5=yf3;
+GLfloat xp1=636,yp1=60,xp2=640,yp2=60,xp3=640,yp3=180,xp4=636,yp4=180,xp5=xp4,yp5=yp4;
 
 GLint le[1000][20],re[1000][20];
 GLint ct[1000],cur_l[1000],cur_r[1000];
@@ -126,7 +128,7 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
     sb=b*b;
     ex=0;
     ey=b;
-
+    int flag=0;
     d1=sb-(sa*b) + (0.5*sa) ;
     for(y=ey+st_y1;y<le_y;y++)
     {
@@ -137,16 +139,19 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
 
     while((sa*(ey-0.5)>sb*(ex+1)) && ex<l)
     {
+        flag=0;
+
         if(d1<0)
             d1+=sb*3+sb*2*ex;
         else
         {
             d1+=sb*3+sb*2*ex+2*sa-2*sa*ey;
             ey--;
+            flag=1;
         }
         ex++;
 
-        if(ex!=l){
+        if(ex!=l && flag==1){
         store_vertex(le_x_l,ey+st_y1);
         store_vertex(-(ex)+st_x1,ey+st_y1);
         store_vertex(ex+st_x1,ey+st_y1);
@@ -207,7 +212,7 @@ void display()
             glColor3f(0.3,0.5,0.5);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            detect_ellipse_up(800,200,400,600,120,800,200,400,600,20,0.1,0.3,0.3);
+            detect_ellipse_up(800,200,400,600,120,450,200,400,600,0,0.1,0.3,0.3);
             //for the land mass
             x1=0,y1=0,x2=300,y2=0,x3=200,y3=300,x4=0,y4=300,x5=0,y5=300;
             scanfill_poly(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,0.5,0.1,0);
@@ -232,6 +237,11 @@ void display()
             //boat base
             scanfill_poly(xb1,yb1,xb2,yb2,xb3,yb3,xb4,yb4,xb5,yb5,0.3,0.1,0);
 
+            //boat flag
+            scanfill_poly(xf1,yf1,xf2,yf2,xf3,yf3,xf4,yf4,xf5,yf5,0.8,0.0,0);
+
+            //boat pole
+            scanfill_poly(xp1,yp1,xp2,yp2,xp3,yp3,xp4,yp4,xp5,yp5,0,0.0,0);
 
 
    glFlush();
@@ -239,26 +249,26 @@ void display()
    glutSwapBuffers();
 }
 
-void translate_x(float x,float tx,int i)
+void translate_boat(float tx)
 {
-    int flag=0;
-    x=x+tx;
-    if(x<Xsize_e)
-        flag=1;
+    if(xb4+tx>280 && xb3+tx<1000){
+    xb1=xb1+tx;
+    xb2=xb2+tx;
+    xb3=xb3+tx;
+    xb4=xb4+tx;
+    xb5=xb5+tx;
 
-    switch(i)
-    {
-        case 1: xb1=x;break;
-        case 2: xb2=x;break;
-        case 3: xb3=x;break;
-        case 4: xb4=x;break;
-        case 5: xb5=x;break;
-    }
+    xf1=xf1+tx;
+    xf2=xf2+tx;
+    xf3=xf3+tx;
+    xf4=xf4+tx;
+    xf5=xf5+tx;
 
-    if(flag==1 && x>Xsize_e)
-    {
-         Xsize_s=Xsize_s+(x-Xsize_e);
-         Xsize_e=x;
+    xp1=xp1+tx;
+    xp2=xp2+tx;
+    xp3=xp3+tx;
+    xp4=xp4+tx;
+    xp5=xp5+tx;
     }
 }
 
@@ -267,20 +277,20 @@ void specialkey(int key,int x,int y)
     switch(key)
     {
     case GLUT_KEY_LEFT:
-        translate_x(xb1,-5,1);
-        translate_x(xb2,-5,2);
+        translate_boat(-5);
+        /*translate_x(xb2,-5,2);
         translate_x(xb3,-5,3);
         translate_x(xb4,-5,4);
-        translate_x(xb5,-5,5);
+        translate_x(xb5,-5,5);*/
         glutPostRedisplay();
         break;
 
     case GLUT_KEY_RIGHT:
-        translate_x(xb1,5,1);
-        translate_x(xb2,5,2);
+        translate_boat(5);
+        /*translate_x(xb2,5,2);
         translate_x(xb3,5,3);
         translate_x(xb4,5,4);
-        translate_x(xb5,5,5);
+        translate_x(xb5,5,5);*/
         glutPostRedisplay();
         break;
     }
@@ -307,4 +317,4 @@ int main(int argc,char **argv)
             glutSpecialFunc(specialkey);
             glutMainLoop();
             return 0;
-   }
+}
