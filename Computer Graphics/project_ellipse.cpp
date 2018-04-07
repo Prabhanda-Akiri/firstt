@@ -128,7 +128,7 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
     ey=b;
 
     d1=sb-(sa*b) + (0.5*sa) ;
-    for(y=ey+st_y1+1;y<le_y;y++)
+    for(y=ey+st_y1;y<le_y;y++)
     {
         store_vertex(le_x_l,y);
         store_vertex(le_x,y);
@@ -146,10 +146,11 @@ void detect_ellipse_up(double a,double b,float l,float st_x,float st_y,double a1
         }
         ex++;
 
+        if(ex!=l){
         store_vertex(le_x_l,ey+st_y1);
         store_vertex(-(ex)+st_x1,ey+st_y1);
         store_vertex(ex+st_x1,ey+st_y1);
-        store_vertex(le_x,ey+st_y1);
+        store_vertex(le_x,ey+st_y1);}
     }
 
     for(y=0;y<1000;y++)
@@ -206,7 +207,7 @@ void display()
             glColor3f(0.3,0.5,0.5);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            detect_ellipse_up(800,200,400,600,150,800,200,400,600,80,0.1,0.3,0.3);
+            detect_ellipse_up(800,200,400,600,120,800,200,400,600,20,0.1,0.3,0.3);
             //for the land mass
             x1=0,y1=0,x2=300,y2=0,x3=200,y3=300,x4=0,y4=300,x5=0,y5=300;
             scanfill_poly(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,0.5,0.1,0);
