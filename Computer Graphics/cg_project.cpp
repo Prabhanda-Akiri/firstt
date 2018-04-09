@@ -5,11 +5,15 @@
 #define pi 3.14159265
 
 GLfloat x1,y,x2,y2,x3,y3,x4,y4,x5,y5;
+
 GLfloat xb1=600,yb1=10,xb2=680,yb2=10,xb3=700,yb3=60,xb4=580,yb4=60,xb5=580,yb5=60;
 GLfloat xf1=640,yf1=90,xf2=700,yf2=130,xf3=640,yf3=170,xf4=xf3,yf4=yf3,xf5=xf3,yf5=yf3;
 GLfloat xp1=636,yp1=60,xp2=640,yp2=60,xp3=640,yp3=180,xp4=636,yp4=180,xp5=xp4,yp5=yp4;
 GLfloat xr1=20*sqrt(3),yr1=-20,xr2=20*sqrt(3),yr2=20,xr3=0,yr3=40,xr4=-20*sqrt(3),yr4=20,xr5=-20*sqrt(3),yr5=-20,xr6=0,yr6=-40;
+
 GLfloat sfx=580,sfy=60;
+GLfloat mr=40;
+GLfloat mcx=600,mcy=800;
 
 GLint le[1000][20],re[1000][20];
 GLint ct[1000],cur_l[1000],cur_r[1000];
@@ -84,6 +88,152 @@ void edgedetect(GLfloat x1,GLfloat y,GLfloat x2,GLfloat y2)
             {
                 store_vertex(x,i);
                 x+=mx;
+            }
+}
+
+void detect_circle(double r,float x0,float y0,float u,float v,float w)
+{
+    int i,y,j;
+    for(i=0;i<1000;i++)
+    {
+       ct[i]=0;
+       cur_l[i]=0;
+       cur_r[i]=0;
+       for(j=0;j<20;j++)
+       {
+          le[i][j]=1000;
+          re[i][j]=0;
+       }
+    }
+
+
+
+
+    int ex=0,ey=r;
+    int h=1-r;
+
+    store_vertex(ex+x0,ey+y0);
+    store_vertex(ey+x0,ex+y0);
+        store_vertex(ey+x0,-ex+y0);
+        store_vertex(-ey+x0,-ex+y0);
+        store_vertex(-ey+x0,ex+y0);
+        store_vertex(ex+x0,-ey+y0);
+        store_vertex(-ex+x0,-ey+y0);
+        store_vertex(-ex+x0,ey+y0);
+        store_vertex(ex+x0,ey+y0);
+
+    while(ey>ex)
+    {
+        if(h<0)
+            h=h+2*ex+3;
+        else
+        {
+            h=h+2*(ex-ey)+5;
+            ey=ey-1;
+        }
+        ex=ex+1;
+        store_vertex(ex+x0,ey+y0);
+        store_vertex(ey+x0,ex+y0);
+        store_vertex(ey+x0,-ex+y0);
+        store_vertex(-ey+x0,-ex+y0);
+        store_vertex(-ey+x0,ex+y0);
+        store_vertex(ex+x0,-ey+y0);
+        store_vertex(-ex+x0,-ey+y0);
+        store_vertex(-ex+x0,ey+y0);
+        store_vertex(ex+x0,ey+y0);
+
+
+
+    }
+
+
+    for(y=0;y<1000;y++)
+    {
+       for(i=0;i<ct[y]+1;i++)
+       {
+          //printf("plotting point ellipse");
+          if(le[y][i]<re[y][i])
+          {
+             for(j=le[y][i]+1;j<re[y][i];j++)
+                drawpixel(j,y,u,v,w);
+          }
+       }
+     }
+}
+
+
+void plot_stars(float ra,float X,float Y)
+{
+    double x,y,R,h;
+   x=0;
+   y=ra;
+   h=1-ra;
+
+    store_vertex(x+X,y+Y);
+    store_vertex(y+X,x+Y);
+    store_vertex(y+X,-x+Y);
+    store_vertex(x+X,-y+Y);
+    store_vertex(-x+X,-y+Y);
+    store_vertex(-y+X,-x+Y);
+    store_vertex(y+X,-x+Y);
+    store_vertex(-x+X,y+Y);
+
+
+    while(y>x)
+    {
+        if(h<0)
+            h=h+2*x+3;
+        else
+        {
+           h=h+2*(x-y)+5;
+           y=y-1;
+
+        }
+        x=x+1;
+
+    store_vertex(x+X,y+Y);
+    store_vertex(y+X,x+Y);
+    store_vertex(y+X,-x+Y);
+    store_vertex(x+X,-y+Y);
+    store_vertex(-x+X,-y+Y);
+    store_vertex(-y+X,-x+Y);
+    store_vertex(-y+X,x+Y);
+    store_vertex(-x+X,y+Y);
+
+
+    }
+
+}
+
+void create_stars(int x,int y,float a,float b,float c)
+{
+     int i,yc,j;
+            for(i=0;i<1000;i++)
+            {
+                        ct[i]=0;
+                        cur_l[i]=0;
+                        cur_r[i]=0;
+                        for(j=0;j<20;j++)
+                        {
+                            le[i][j]=1000;
+                            re[i][j]=0;
+                        }
+            }
+
+     plot_stars(0.8,x,y);
+     plot_stars(2,x,y);
+     plot_stars(3,x,y);
+
+      for(yc=0;yc<1000;yc++)
+            {
+                for(i=0;i<ct[i]+1;i++)
+                {
+                    if(le[yc][i]<re[yc][i])
+                    {
+                        for(j=le[yc][i]+1;j<re[yc][i];j++)
+                        drawpixel(j,yc,a,b,c);
+                    }
+                }
             }
 }
 
@@ -259,6 +409,15 @@ void display()
             //printing boat fan
             print_boat_fan(sfx,sfy);
 
+            //stars
+            create_stars(100,850,0.9,1,0.1);
+            create_stars(200,850,0.9,1,0.1);
+            create_stars(300,850,0.9,1,0.1);
+            create_stars(400,850,0.9,1,0.1);
+
+            //moon
+            detect_circle(mr,mcx,mcy,0.9,1,0.1);
+
 
    glFlush();
    glutPostRedisplay();
@@ -320,12 +479,49 @@ void translate_boat(float tx)
     }
 }
 
+void scale_moon_up(float sr)
+{
+    mr=mr*sr;
+
+}
+
+void scale_moon_down(float sr)
+{
+    mr=mr/sr;
+
+}
+
+void reflect_moon()
+{
+    if(mcx>500)
+        mcx=500-(mcx-500);
+    else
+        mcx=500+(500-mcx);
+
+}
+
 void Mykeyboardfunc(unsigned char s,int x,int y)
 {
     switch(s)
     {
     case 'r':
-        rotate_boat_fan(5);
+        rotate_boat_fan(10);
+        //glutPostRedisplay();
+        break;
+
+    case 's':
+        scale_moon_up(1.25);
+        //glutPostRedisplay();
+        break;
+
+    case 'h':
+        scale_moon_down(1.25);
+        //glutPostRedisplay();
+        break;
+
+    case 'f':
+        reflect_moon();
+        //glutPostRedisplay();
         break;
     }
 }
