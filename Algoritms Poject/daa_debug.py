@@ -192,7 +192,7 @@ class Manhattan_Touring:
 	def longest_path(self):
 
 		self.S[0][0]=0 
-		self.P=[0]
+		#self.P=[0]
 		#print(self.r)
 		for i in range(1,self.r):
 			#print(i,self.W_s[i][0])
@@ -205,20 +205,42 @@ class Manhattan_Touring:
 		for i in range(1,self.r):
 			for j in range(1,self.r):
 
+				
 				a=max((self.S[i-1][j]+self.W_s[i-1][j]),(self.S[i][j-1]+self.W_e[i][j-1]))
 
-				if a==(self.S[i-1][j]+self.W_s[i-1][j]):
-					self.P.append(int(self.r*(i-1)+j))
+				"""if a==(self.S[i-1][j]+self.W_s[i-1][j]):
+					#print(i-1,j,'	',i,j)
+					if self.P[-1]!=int(self.r*(i-1)+j):
+						self.P.append(int(self.r*(i-1)+j))
 				else:
-					self.P.append(int(self.r*(i)+j-1))
+					#print(i,j-1,'	',i,j)
+					self.P.append(int(self.r*(i)+j-1))"""
 
 				self.S[i][j]=a 
 
-		self.P.append(self.n-1)
+		#self.P.append(self.n-1)
 		return self.S[i][j]
 
 	def give_path(self):
 
+		self.P=[self.n-1]
+
+		""""for i in range(self.r-1,0,-1):
+			for j in range(self.r-1,0,-1):"""
+		i=self.r-1
+		j=self.r-1
+
+		while( i!=0 and j!=0) :
+
+			if self.S[i][j]==self.S[i-1][j]+self.W_s[i-1][j]:
+				self.P.append(int(self.r*(i-1)+j))
+				i-=1
+			else:
+				self.P.append(int(self.r*(i)+j-1))
+				j-=1
+
+		self.P.append(0)
+		self.P.reverse()
 		print(self.P)
 
 
@@ -261,81 +283,58 @@ def main():
 	print('The maximun weight of route:	',m.longest_path())
 	m.give_path()
 
-	"""print('\n\nWelcome to the Spice Star travel guide\n\nWe are delighted to provide our service to you..!!\n')
+	print('\n\nWelcome to the Spice Star travel guide\n\nWe are delighted to provide our service to you..!!\n')
 	
 	print('\nTo proceed further you must Login....\n')	
 	print('\nNot a member yet ? press \'1\' to Sign Up\nAlready a member ? press \'2\' to Log In..')
 
 	log_choice=0
-
-	while(log_choice<1 and log_choice>2):
+	while log_choice<1 or log_choice>2 :
 		
 		log_choice=int(input())
-
 		if log_choice==1 or log_choice==2:
 			print("\nEnter a valid choice")
 		else:
 			break
-
 	if log_choice==1:
-
 		new_name=input('\nEnter your User-name:	')
 		new_pass=input('\nEnter your Password:	')
-
 		user_names.append(new_name)
 		passwords.append(new_pass)
-
 		print('\nNow you are Registered into Spice Stars services..\nYou can proceed to Login\n')
-
 		log_choice=2
 
 	if log_choice==2:
-
+		
 		u_name=input('\nEnter your User-name:	')
 		u_pass=input('\nEnter your Password:	')
-
 		uid=-1
-
 		for i in user_names:
-
 			if i==u_name :
 				uid=i 
 				break
-
 		if passwords[uid]==u_pass :
-
 			print('\nYou are successfully logged in.. !!!\n')
-
 			print('\nHere are the list of Cities foor which we extend our services..\nChoose one among them\n')
-
 			for i in cities :
-
 				print('\n',i+1,'. ',cities[i])
-
 			place=int(input())
-
 			print('\nHere are the two kinds of services we\'ll be providing for the tourists based upon their requirements\n')
-
 			#print('\nGo through them properly and make your choice..!!\n')
-
 			print('1.	This service basically assumes you have enough fuel to travel all over the city.')
 			print('We provide you a path to tour around the city such that you can visit all the places present',end='')
 			print('in the city on existing roadways and also assure you that you don\'t visit a place twice.')
 			print('Depending on the routes for the city the path given might take you to the same place')
 			print('where you\'ve started initially or another place.')			
-
 			print('2.	Manhattan Tour')
 
 
-
-
 def select_file(a):
-
 	if a==1:
-
+		pass
 	elif a==2:
-
-	return abc.txt"""
+		pass
+	return abc.txt
 
 if __name__ == '__main__':
 	main()
