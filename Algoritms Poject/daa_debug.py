@@ -4,14 +4,18 @@ import math
 class Fleurys:
 
 	#constructor to initialise the values of the graph
-	def __init__(self,n,e,E):
+	def __init__(self,n,e,N,E):
 
 		self.n=n
 		self.e=e
 		self.V=[]
+		self.Names=[]
 		self.visited=[]
 
 		self.init_vertices(E)
+
+		for i in range(self.n):
+			self.Names.append(N[i])
 
 	""" this function is used to make the nodes for each of vertices in the graph 
 	and store the required iformation"""
@@ -33,7 +37,6 @@ class Fleurys:
 
 			from_v.adj.append(to_v)
 			to_v.adj.append(from_v)
-
 	
 	#Checks if the given graph can have a Eulerian Circuit/ Path
 	def isEulerian(self):
@@ -153,21 +156,31 @@ class Fleurys:
 
 		return self.route
 
+	def print_fleury_path(self):
+
+		for i in range(len(self.route)-1):
+
+			print(self.Names[self.route[i]],'	-->	',self.Names[self.route[i+1]])
+
 class Manhattan_Touring:
 
-	def __init__(self,n,e,E):
+	def __init__(self,n,e,N,E):
 		
 		self.n=n 
 		self.e=e 
-
+		self.Names=[]
 		self.r=int(math.sqrt(self.n))
+
+		for i in range(self.n):
+			self.Names.append(N[i])
+
 		self.init_edgetable(E)
 
 		self.S=[[0 for i in range(self.r)] for i in range(self.r)]
 
 	def init_edgetable(self,E):
 
-		self.g_no=[[int(i/3),(i%3)] for i in range(self.n)]
+		self.g_no=[[int(i/self.r),(i%self.r)] for i in range(self.n)]
 		self.W_s=[[0 for i in range(self.r)] for i in range(self.r)] 
 		self.W_e=[[0 for i in range(self.r)] for i in range(self.r)] 
 		
@@ -204,17 +217,8 @@ class Manhattan_Touring:
 		
 		for i in range(1,self.r):
 			for j in range(1,self.r):
-
-				
+			
 				a=max((self.S[i-1][j]+self.W_s[i-1][j]),(self.S[i][j-1]+self.W_e[i][j-1]))
-
-				"""if a==(self.S[i-1][j]+self.W_s[i-1][j]):
-					#print(i-1,j,'	',i,j)
-					if self.P[-1]!=int(self.r*(i-1)+j):
-						self.P.append(int(self.r*(i-1)+j))
-				else:
-					#print(i,j-1,'	',i,j)
-					self.P.append(int(self.r*(i)+j-1))"""
 
 				self.S[i][j]=a 
 
@@ -225,8 +229,6 @@ class Manhattan_Touring:
 
 		self.P=[self.n-1]
 
-		""""for i in range(self.r-1,0,-1):
-			for j in range(self.r-1,0,-1):"""
 		i=self.r-1
 		j=self.r-1
 
@@ -241,7 +243,11 @@ class Manhattan_Touring:
 
 		self.P.append(0)
 		self.P.reverse()
-		print(self.P)
+		#print(self.P)
+
+		for i in range(len(self.P)-1) :
+
+			print(self.Names[self.P[i]],'	-->	',self.Names[self.P[i+1]])
 
 
 class Vertex_Node:
@@ -257,10 +263,42 @@ class Edge_Node:
 		self.end=e 
 		self.weight=w 
 
-class algos_Interface:
+class Tourist_algos_Interface:
 
-	def __init__(self):
-		pass 
+	def __init__(self,f):
+
+		self.file_name=f 
+
+		lines = [line.rstrip('\n') for line in open(self.file_name)]
+		#print(lines)
+		self.n=int(lines[0])
+		self.e=int(lines[1])
+		self.N=lines[2:2+(self.n)]
+		self.E=[]
+		#j=0
+		for i in range(2+(self.n),len(lines)):
+			s=lines[i]
+			s=s.split()
+
+			e_buff=[int(s[0]),int(s[1]),int(s[2])]
+			self.E.append(e_buff)
+
+		print(self.n,self.e,self.N,self.E)
+		self.Fleury_obj=Fleurys(self.n,self.e,self.N,self.E)
+		self.Man_obj=Manhattan_Touring(self.n,self.e,self.N,self.E)
+
+	def show_fleury_path(self):
+
+		if self.Fleury_obj.isEulerian():
+			self.Fleury_obj.giveRoute()
+			print('\nFollow this path:\n')
+			self.Fleury_obj.print_fleury_path()
+
+	def show_manhattan_path(self):
+		
+		print('\nNumber of places covered in this path:	',self.Man_obj.longest_path())
+		print('\nThis is the path:\n')
+		self.Man_obj.give_path()
 
 def main():
 
@@ -272,8 +310,9 @@ def main():
 	passwords=['arjun1','karan2','sneha3','swathi4']
 
 
-	cities=[""]
-	fl=Fleurys(n,e,E)
+	cities=["Manhattan","Mangalore"]
+
+	"""fl=Fleurys(n,e,E)
 
 	print('\nisEulerian?	',fl.isEulerian())
 	print('\n',fl.giveRoute())
@@ -281,7 +320,7 @@ def main():
 	m=Manhattan_Touring(n,e,E)
 
 	print('The maximun weight of route:	',m.longest_path())
-	m.give_path()
+	m.give_path()"""
 
 	print('\n\nWelcome to the Spice Star travel guide\n\nWe are delighted to provide our service to you..!!\n')
 	
@@ -289,52 +328,71 @@ def main():
 	print('\nNot a member yet ? press \'1\' to Sign Up\nAlready a member ? press \'2\' to Log In..')
 
 	log_choice=0
+
 	while log_choice<1 or log_choice>2 :
 		
 		log_choice=int(input())
-		if log_choice==1 or log_choice==2:
+		if log_choice!=1 or log_choice!=2:
 			print("\nEnter a valid choice")
 		else:
 			break
+
 	if log_choice==1:
 		new_name=input('\nEnter your User-name:	')
 		new_pass=input('\nEnter your Password:	')
+
 		user_names.append(new_name)
 		passwords.append(new_pass)
+
 		print('\nNow you are Registered into Spice Stars services..\nYou can proceed to Login\n')
 		log_choice=2
 
 	if log_choice==2:
-		
+
 		u_name=input('\nEnter your User-name:	')
 		u_pass=input('\nEnter your Password:	')
+
 		uid=-1
 		for i in user_names:
 			if i==u_name :
-				uid=i 
+				uid=user_names.index(i)
 				break
+
 		if passwords[uid]==u_pass :
 			print('\nYou are successfully logged in.. !!!\n')
 			print('\nHere are the list of Cities foor which we extend our services..\nChoose one among them\n')
+
 			for i in cities :
-				print('\n',i+1,'. ',cities[i])
+				print('\n',cities.index(i)+1,'. ',i)
+
 			place=int(input())
+
+			city_file=select_file(place)
+
+			interface=Tourist_algos_Interface(city_file)
+
 			print('\nHere are the two kinds of services we\'ll be providing for the tourists based upon their requirements\n')
 			#print('\nGo through them properly and make your choice..!!\n')
 			print('1.	This service basically assumes you have enough fuel to travel all over the city.')
-			print('We provide you a path to tour around the city such that you can visit all the places present',end='')
+			print('We provide you a path to tour around the city such that you can visit all the places present')
 			print('in the city on existing roadways and also assure you that you don\'t visit a place twice.')
 			print('Depending on the routes for the city the path given might take you to the same place')
-			print('where you\'ve started initially or another place.')			
-			print('2.	Manhattan Tour')
+			print('where you\'ve started initially or another place.')	
+
+			interface.show_fleury_path()
+
+			print('\n\n2.	Manhattan Tour')
+			interface.show_manhattan_path()
+
+		else:
+			print('\nYour Login credentials are wrong..! Try again..!!\n')
 
 
 def select_file(a):
 	if a==1:
-		pass
+		return 'ppppp.txt'
 	elif a==2:
-		pass
-	return abc.txt
+		return 'ppppp1.txt'
 
 if __name__ == '__main__':
 	main()
