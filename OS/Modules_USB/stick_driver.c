@@ -5,8 +5,15 @@
 //probe function
 static int pen_probe(struct usb_interface *interface, const struct usb_device_id *id)
 {
-	printk(KERN_INFO "[*]HP v220w Pen drive (%04X:%04X) plugged \n",id->idVendor , id->idProduct);
-	return 0;
+	struct usb_host_interface *iface_desc;
+    //struct usb_endpoint_descriptor *endpoint;
+    //int i;
+ 
+    iface_desc = interface->cur_altsetting;
+    printk(KERN_INFO "\nHi Prajwala...!!\n");
+    printk(KERN_INFO "Pen i/f %d now probed: (%04X:%04X)\n",
+            iface_desc->desc.bInterfaceNumber, id->idVendor, id->idProduct);
+            	return 0;
 }
 
 //disconnect 
@@ -37,7 +44,9 @@ static int __init pen_init(void)
 	int ret = -1;
 	printk(KERN_INFO "[*]HP v220w Constructor of driver");
 	printk(KERN_INFO "\tRegistering Driver with Kernel");
+
 	ret=usb_register(&pen_driver);
+	
 	printk(KERN_INFO "\tRegistration is complete");
 	return ret;
 }
@@ -58,12 +67,16 @@ MODULE_DESCRIPTION("USB Pen Registration Driver");
 
 
 /*
+sudo rmmod uas usb_storage 
+//mount
 sudo make
 ls
 sudo insmod stick_driver.ko
-demsg
-sudo rmmod usb_storage          (rmmod -f if needed)
-demsg
+demsg   
+//unmount
+demsg		//probe works here
 sudo rmmod stick_driver.ko
-demsg
+
+
+to reinstall usb_storage :	sudo modprobe usb-storage quirks=0bc2:ab21:u
 */
