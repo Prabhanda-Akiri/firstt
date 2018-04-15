@@ -11,6 +11,7 @@ static int pen_probe(struct usb_interface *interface, const struct usb_device_id
     int i;
  
     iface_desc = interface->cur_altsetting;
+    printk(KERN_INFO "Hi Prajwala...!!\n");
     printk(KERN_INFO "Pen i/f %d now probed: (%04X:%04X)\n",
             iface_desc->desc.bInterfaceNumber, id->idVendor, id->idProduct);
     printk(KERN_INFO "ID->bNumEndpoints: %02X\n",
@@ -22,9 +23,9 @@ static int pen_probe(struct usb_interface *interface, const struct usb_device_id
     {
         endpoint = &iface_desc->endpoint[i].desc;
  
-        printk(KERN_INFO "ED[%d]->bEndpointAddress: 0x%02X\n",
+        printk(KERN_INFO "ED[%d]->boooEndpointAddress: 0x%02X\n",
                 i, endpoint->bEndpointAddress);
-        printk(KERN_INFO "ED[%d]->bmAttributes: 0x%02X\n",
+        printk(KERN_INFO "ED[%d]->booomAttributes: 0x%02X\n",
                 i, endpoint->bmAttributes);
         printk(KERN_INFO "ED[%d]->wMaxPacketSize: 0x%04X (%d)\n",
                 i, endpoint->wMaxPacketSize, endpoint->wMaxPacketSize);
@@ -57,13 +58,19 @@ static struct usb_driver pen_driver =
  
 static int __init pen_init(void)
 {
+    printk(KERN_INFO "\tRegistering Driver with Kernel");
+    printk(KERN_INFO "\tRegistration is complete");
     return usb_register(&pen_driver);
 }
  
 static void __exit pen_exit(void)
 {
+    printk(KERN_INFO "[*] HP v220w Destructor of driver");
+
     usb_deregister(&pen_driver);
+    printk(KERN_INFO "\tUn-Registration is complete");
 }
+
  
 module_init(pen_init);
 module_exit(pen_exit);
