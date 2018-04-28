@@ -16,11 +16,17 @@
 
 int main(int argc, char *argv[])
 {
-    int listenfd = 0, connfd = 0;
+    int listenfd = 0, connfd = 0,reg_no=3;
     struct sockaddr_in serv_addr; 
 
-    char sendBuff[1025];
+    char sendBuff[1025],reg_users[10][20];
     time_t ticks; 
+
+
+    strcpy(reg_users[0],"William");
+    strcpy(reg_users[1],"John");
+    strcpy(reg_users[2],"Emily");
+
 
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
     //Initializing the Socket
@@ -48,49 +54,91 @@ int main(int argc, char *argv[])
         int clientSockFd[MAX_PLAYERS];
         struct sockaddr_in clientAddress;
         socklen_t clientLen = sizeof(clientAddress);
-        int pid;
-        printf("\n Server waiting to begin a new game.....\n\n");
+        int pid,flag=0;
+        char uname[20];
+
+        printf("\nWelcome to the Wisconsin's Casino gaming company..!!!\n\n");
+        printf("\nLet's start the BLack-Jack game\n");
+        printf("Do you want to register users?\n1.Yes\n2.No\n");
+
+        scanf("%d",&flag);
+
+        if(flag==1)
+        while(flag==1)
+        {
+            printf("\nEnter your username:  ");
+            scanf("%s",uname);
+            strcpy(reg_users[reg_no],uname);
+            reg_no++;
+
+            printf("\nThe user %s has been added to Wiscon's Casino..!\n",uname);
+
+            printf("\nDo you want to add more users?\n1.YES\n2.NO\n");
+            scanf("%d",&flag);
+
+            if(flag==2)
+                break;
+        }
+        
+        printf("\nThe Dealer Mr.Robin is waiting to begin a new game.....\n\n");
+
         clientSockFd[0] = accept(listenfd, (struct sockaddr*)&clientAddress, &clientLen);
-        if(clientSockFd[0]<0){
+        if(clientSockFd[0]<0)
+        {
             error("Error accepting first client");
         } 
-        else{
+        else
+        {
             printf("First player is connected on socket %d\n",clientSockFd[0]);
             int number_of_clients = 1;
-            while(number_of_clients<MAX_PLAYERS){
+            while(number_of_clients<MAX_PLAYERS)
+            {
                 printf("Waiting for next player to connect \n \n");
-                if((clientSockFd[number_of_clients]=accept(listenfd, (struct sockaddr*)&clientAddress, &clientLen))<0){
+                if((clientSockFd[number_of_clients]=accept(listenfd,(struct sockaddr*)&clientAddress,&clientLen))<0)
+                {
                     error("Error accepting next client\n");
                 }
-                else{
+                else
+                {
                     printf("Next player connected on socket %d \n",clientSockFd[number_of_clients]);
                 }
 
                 number_of_clients++;
             }
 
-            printf("Let the games begin \n");
+            printf("\nNOW THE REAL GAME BEGINS.....!! \n");
             //At this stage all the players in the game are connected
 
             //At this stage -- Create a new process
-            switch(pid=fork()){
+            switch(pid=fork())
+            {
                 case -1: error("A new process cannot be created");
                 case 0:
                 {
                     //New process created:
-                    char arguments[MAX_PLAYERS][300];
-                    char *args[MAX_PLAYERS+2];
+                    char arguments[MAX_PLAYERS+2+reg_no][300];
+                    char *args[MAX_PLAYERS+2+reg_no];
                     strcpy(arguments[0],"./dealer");
                     args[0] = arguments[0];
-                    int i;
-                    for(i=0;i<number_of_clients;i++){
+                    int i,j;
+                    for(i=0;i<number_of_clients;i++)
+                    {
                         sprintf(arguments[i+1],"%d",clientSockFd[i]);
                         args[i+1] = arguments[i+1];
                     }
-                    for(i=number_of_clients+1;i<=MAX_PLAYERS+1;i++){
+                    
+                    for(i=number_of_clients+1;i<=MAX_PLAYERS+1;i++)
+                    {
                         args[i] = 0;
                     }
 
+                    for(j=0;j<reg_no;j++)
+                    {
+                        sprintf(arguments[i+1+j],"%s",reg_users[j]);
+                        args[i+1+j] = arguments[i+1+j];
+                    }
+                    
+                    printf("%d",i+j+1);
                     execv("./dealer",args);
                     //printf("Check\n");
                     error("exec didn't succeed");
@@ -111,7 +159,6 @@ int main(int argc, char *argv[])
         close(clientSockFd[0]);
         close(clientSockFd[1]);
         close(clientSockFd[2]);
-
 
     //break;
     sleep(100);
